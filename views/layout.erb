@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    <title>todo app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/assets/css/app.css" rel="stylesheet" media="screen">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/assets/js/jquery-1.9.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/underscore.js"></script>
+    <script src="/assets/js/backbone.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.6.2/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="padding-20">
+    <nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse padding-20" role="navigation">
+  		<!-- Brand and toggle get grouped for better mobile display -->
+  		<div class="navbar-header">
+  		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+  		    <span class="sr-only">Toggle navigation</span>
+  		    <span class="icon-bar"></span>
+  		    <span class="icon-bar"></span>
+  		    <span class="icon-bar"></span>
+  		  </button>
+  		  <a class="navbar-brand" href="#">Todo</a>
+  		</div>
+
+  		<!-- Collect the nav links, forms, and other content for toggling -->
+  		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  		  <ul class="nav navbar-nav">
+  		    <li class="active"><a href="#">我的工作台</a></li>
+  		    <li><a href="#">圈子</a></li>
+  		  </ul>
+  		  <ul class="nav navbar-nav navbar-right">
+					<% if current_user.nil? %>
+  		  	  <li><a href="#" data-toggle="modal" data-target="#login-box">登录</a></li>
+  		  	  <li><a href="#" data-toggle="modal" data-target="#signup-box">注册</a></li>
+					<% else %>
+  		  	  <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email %><b class="caret"></b></a>
+  		  	    <ul class="dropdown-menu">
+  		  	      <li><a href="users/logout">退出</a></li>
+  		  	      <li class="divider"></li>
+  		  	      <li><a href="#">创建圈子</a></li>
+  		  	      <li><a href="#">Something else here</a></li>
+  		  	      <li><a href="#">Separated link</a></li>
+  		  	    </ul>
+  		  	  </li>
+					<% end %>
+				</ul>
+  		</div><!-- /.navbar-collapse -->
+		</nav>
+		<div class="container">
+			<%if @error then %>
+				<div class="alert alert-error"><%=@error%></div>
+			<% end %>
+			<%= yield %>
+		</div> <!-- /container -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="login-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog login-modal">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="myModalLabel">请登录</h4>
+		      </div>
+		      <div class="modal-body container">
+		        <form class="form-signin" action="users/login" method="post">
+							<div class='form-group'>
+								<input type="text" name="email" class="form-control" placeholder="邮箱" required="" autofocus="">
+							</div>
+							<div class='form-group'>
+        				<input type="password" name="password" class="form-control" placeholder="密码" required="">
+							</div>
+        			<label class="checkbox">
+        			  <input type="checkbox" value="remember-me"> 记住我
+        			</label>
+        			<button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
+      			</form>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		<div class="modal fade" id="signup-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog login-modal">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="myModalLabel">请注册</h4>
+		      </div>
+		      <div class="modal-body container">
+		        <form class="form-signin" action="users/login" method="post">
+							<div class='form-group'>
+								<input type="text" name="r-email" class="form-control" placeholder="邮箱" required="" autofocus="">
+							</div>
+							<div class='form-group'>
+        				<input type="password" name="r-password" class="form-control" placeholder="密码" required="">
+							</div>
+							<div class='form-group'>
+        				<input type="password" name="r-password-c" class="form-control" placeholder="确认密码" required="">
+							</div>
+        			<button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
+      			</form>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+  </body>
+</html>

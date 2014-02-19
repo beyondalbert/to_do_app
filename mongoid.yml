@@ -1,0 +1,21 @@
+development:
+  sessions:
+    default:
+      database: todolist_dev
+      hosts:
+        - localhost:27017
+      username: "albert"
+      password: "1234"
+  options:
+    raise_not_found_error: false
+
+production:
+  sessions:
+    default:
+      database: todolist_pro
+      hosts:
+        - localhost:27017
+      username: albert
+      password: 1234
+  options:
+    raise_not_found_error: false
